@@ -1,11 +1,16 @@
 # Railway n8n deployment
 
-This fork is deployed on Railway with the official n8n Docker image.
+This fork is deployed on Railway with the official n8n Docker image plus the
+third-party Chinese editor UI package from `other-blowsnow/n8n-i18n-chinese`.
 
 The upstream source repository includes Dockerfiles that expect a precompiled
 `compiled/` artifact from n8n's release build pipeline. For Railway, the root
-`Dockerfile` intentionally inherits from `docker.n8n.io/n8nio/n8n:latest` so
+`Dockerfile` intentionally inherits from `docker.n8n.io/n8nio/n8n:2.22.4` so
 Railway does not try to compile the full monorepo during deployment.
+
+The Chinese editor UI package is version-locked to `release/2.22.4`, matching
+the n8n image version. Do not move the base image to `latest` unless the Chinese
+package release is updated to the same n8n version.
 
 Required Railway services:
 
@@ -27,6 +32,7 @@ Required n8n variables on the `n8n` service:
 - `DB_POSTGRESDB_PASSWORD=${{Postgres.PGPASSWORD}}`
 - `DB_POSTGRESDB_SCHEMA=public`
 - `N8N_ENCRYPTION_KEY=<stable generated secret>`
+- `N8N_DEFAULT_LOCALE=zh-CN`
 - `GENERIC_TIMEZONE=Asia/Shanghai`
 - `TZ=Asia/Shanghai`
 
