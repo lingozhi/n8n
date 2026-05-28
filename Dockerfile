@@ -21,7 +21,7 @@ FROM docker.n8n.io/n8nio/n8n:${N8N_VERSION}
 USER root
 
 RUN set -eux; \
-	editor_dir="$(node -p "require('path').join(require('path').dirname(require.resolve('n8n-editor-ui')), 'dist')")"; \
+	editor_dir="/usr/local/lib/node_modules/n8n/node_modules/n8n-editor-ui/dist"; \
 	rm -rf "$editor_dir"; \
 	mkdir -p "$editor_dir"
 
